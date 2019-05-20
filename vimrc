@@ -31,6 +31,7 @@ set encoding=utf-8
 
 " show line number
 set number
+nnoremap <F2> :set nonumber! noai!<CR>
 
 " turnoff line numbers
 "set nonumber 
@@ -40,7 +41,7 @@ set ruler " show column number in status bar
 " indentation
 set autoindent
 filetype on
-filetype indent on
+"filetype plugin indent on
 
 set wildmenu
 
@@ -70,4 +71,3 @@ highlight Search cterm=NONE ctermbg=220 ctermfg=0
 
 " Press CTRL+L for removing the highlighted colors after search
 nnoremap <silent> <C-l> :nohl<CR><C-l>
-set pastetoggle=<F2>
