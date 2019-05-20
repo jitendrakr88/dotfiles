@@ -69,4 +69,5 @@ set ignorecase      " ignore case while search
 highlight Search cterm=NONE ctermbg=220 ctermfg=0
 
 " Press CTRL+L for removing the highlighted colors after search
-nnoremap <silent> <C-l> :nohl<CR><C-l> 
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+set pastetoggle=<F2>
