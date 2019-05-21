@@ -20,6 +20,8 @@ vbell off
 # switch windows with F3 (prev) and F4 (next)                                                                                                                                                              
 bindkey "^[OR" prev                                                                                                                                                                                        
 bindkey "^[OS" next                                                                                                                                                                                        
-                                                                                                                                                                                                           
+
+# enable 256 color support
+term screen-256color
                                                                                                                                                                                                            
 #end of file
