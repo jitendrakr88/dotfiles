@@ -1,6 +1,6 @@
 set nocompatible
 
-" enable syntax 
+" enable syntax
 syntax on
 syntax enable
 
@@ -17,7 +17,7 @@ set showcmd
 set showmatch
 
 " enable mouse in vim { mostly not required }
-"set mouse=a 
+"set mouse=a
 
 
 set scrolloff=5
@@ -34,7 +34,7 @@ set number
 nnoremap <F2> :set nonumber! noai!<CR>
 
 " turnoff line numbers
-"set nonumber 
+"set nonumber
 
 set ruler " show column number in status bar
 
@@ -53,7 +53,7 @@ if &diff
     highlight DiffDelete cterm=NONE ctermfg=15 ctermbg=124
     highlight DiffChange cterm=NONE ctermfg=15 ctermbg=22
     highlight DiffText   cterm=NONE ctermfg=15 ctermbg=88
-else 
+else
     colorscheme twilight256
     " adding colors for highlighting current cursor line
     set cursorline
@@ -61,12 +61,12 @@ else
 endif
 
 
-" search in vim 
+" search in vim
 set incsearch       " incremental search
 set hlsearch        " highlight matched items in search
 set ignorecase      " ignore case while search
 
-" colors for matched search items 
+" colors for matched search items
 highlight Search cterm=NONE ctermbg=220 ctermfg=0
 
 " Press CTRL+L for removing the highlighted colors after search

@@ -1,6 +1,6 @@
 set nocompatible
 
-" enable syntax 
+" enable syntax
 syntax on
 syntax enable
 
@@ -17,7 +17,7 @@ set showcmd
 set showmatch
 
 " enable mouse in vim { mostly not required }
-"set mouse=a 
+"set mouse=a
 
 
 set scrolloff=5
@@ -34,7 +34,7 @@ set number
 nnoremap <F2> :set nonumber! noai!<CR>
 
 " turnoff line numbers
-"set nonumber 
+"set nonumber
 
 set ruler " show column number in status bar
 
@@ -53,7 +53,7 @@ if &diff
     highlight DiffDelete cterm=NONE ctermfg=15 ctermbg=124
     highlight DiffChange cterm=NONE ctermfg=15 ctermbg=22
     highlight DiffText   cterm=NONE ctermfg=15 ctermbg=88
-else 
+else
     colorscheme twilight256
     " adding colors for highlighting current cursor line
     set cursorline
@@ -61,32 +61,54 @@ else
 endif
 
 
-" search in vim 
+" search in vim
 set incsearch       " incremental search
 set hlsearch        " highlight matched items in search
 set ignorecase      " ignore case while search
 
-" colors for matched search items 
+" colors for matched search items
 highlight Search cterm=NONE ctermbg=220 ctermfg=0
 
 " Press CTRL+L for removing the highlighted colors after search
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 set noshowmode
-" remove trailing spaces at end of line
-"i:%s/\s\+$//
+
+" Remove trailing whitespaces for python files
+"autocmd BufWritePre * :%s/\s\+$//e
+
+" Removes trailing spaces
+function TrimWhiteSpace()
+    let l = line(".")
+    let c = col(".")
+    :keeppatterns %s/\s\+$//e   " keeppatterns for restroing the search patterns even after TrimWhiteSpaces()
+    call cursor(l, c)           " restore the curser position
+endfunction
+
+"set list listchars=trail:.,extends:>
+autocmd FileWritePre * call TrimWhiteSpace()
+autocmd FileAppendPre * call TrimWhiteSpace()
+autocmd FilterWritePre * call TrimWhiteSpace()
+autocmd BufWritePre * call TrimWhiteSpace()
 
 " *********************************************************************
 " Installing plugins via vim-plug
 " List here all the plugins to be installed
 call plug#begin('~/.vim/plugged')
-    Plug 'itchyny/lightline.vim',
+"    Plug 'itchyny/lightline.vim',
+    Plug 'vim-airline/vim-airline',
     Plug 'tpope/vim-fugitive',
     Plug 'airblade/vim-gitgutter',
     Plug 'scrooloose/nerdtree',
+    Plug 'Nopik/vim-nerdtree-direnter',
     Plug 'ctrlpvim/ctrlp.vim'
 call plug#end()
 " Installing plugins ends.
+
+" **********************************************************************
+" Settings for vim-airline plugin
+"let g:airline#extensions#tabline#enabled = 1
+" **********************************************************************
 
 " **********************************************************************
 "Settings for ctrlp plugin to find files by pressing CTRL+p
@@ -104,18 +126,34 @@ let g:ctrlp_custom_ignore = {
 
 
 " **********************************************************************
-"  Settings for NerdTree 
+"  Settings for NerdTree
 " TIP-01: From NerdTree, navigate to file and press t to open that file in new tab"
 " TIP-02: To navigate between file tabs, use CTRL+PgUp and CTRL+PgDn
 
+" for always opening files in NERDTree in new tab, for this mapping to work,
+" You will need to install Nopik/vim-nerdtree-direnter plugin as well.
+let NERDTreeMapOpenInTab='<ENTER>'
+
+let NERDTreeKeepTreeInNewTab=1
+let NERDTreeIgnore=['\\.pyc', '\\\~$', '\\.swo$', '\\.swp$','\\.git', '\\.hg', '\\.svn', '\\.bzr']
+let NERDTreeShowHidden=1
+
+"hide NERDtree-fileExplorer on opening a file
+" let g:NERDTreeQuitOnOpen = 1 "
+
 " Toggle NerdTree with CTRL+n
 map <C-n> :NERDTreeToggle<CR>
+
+" close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" open NERDTree automatically when vim starts up on opening a directory
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+
+" expand and collapse folders in NERDTree
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
-"autocmd vimenter * NERDTree
-let g:NERDTreeQuitOnOpen = 1
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " **********************************************************************
 " Settings for lightline plugin for status line
