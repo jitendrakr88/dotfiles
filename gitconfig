@@ -18,13 +18,13 @@
   #status = auto
   #branch = auto
   #interactive = auto
-  ui = always 
+  ui = always
   #pager = true
 
 [color "status"]
   added = green
   changed = yellow
-  untracked = cyan 
+  untracked = cyan
 
 [color "diff"]
     meta = yellow
@@ -37,5 +37,3 @@
     current = yellow
 	local = green
     remote = cyan
-
-
