@@ -1,27 +1,27 @@
-# navigating regions with Ctrl-arrows                                                                                                                                                                      
-#bindkey "^[[1;5D" focus left                                                                                                                                                                              
-#bindkey "^[[1;5C" focus right                                                                                                                                                                             
-#bindkey "^[[1;5A" focus up                                                                                                                                                                                
-#bindkey "^[[1;5B" focus down                                                                                                                                                                              
-                                                                                                                                                                                                           
-# Do not display the copyright page                                                                                                                                                                        
-startup_message off # default: on                                                                                                                                                                          
-                                                                                                                                                                                                           
-# Change the number of scrollback lines                                                                                                                                                                    
-defscrollback 1000 # default: 100                                                                                                                                                                          
-                                                                                                                                                                                                           
-# Configure status bar at the bottom of the terminal                                                                                                                                                       
-#hardstatus alwayslastline                                                                                                                                                                                 
-#hardstatus string "%{= kb}[ %=%{w}%?%-Lw%?%{C}(%{W}%n*%f %t%?(%u)%?%{C})%{w}%?%+Lw%?%?%= %{b}][%{C} %Y.%m.%d %{W}%0c %{b}]"                                                                               
-                                                                                                                                                                                                           
-# Turn off the fucking visual bell                                                                                                                                                                         
-vbell off                                                                                                                                                                                                  
-                                                                                                                                                                                                           
-# switch windows with F3 (prev) and F4 (next)                                                                                                                                                              
-bindkey "^[OR" prev                                                                                                                                                                                        
-bindkey "^[OS" next                                                                                                                                                                                        
+# navigating regions with Ctrl-arrows
+#bindkey "^[[1;5D" focus left
+#bindkey "^[[1;5C" focus right
+#bindkey "^[[1;5A" focus up
+#bindkey "^[[1;5B" focus down
+
+# Do not display the copyright page
+startup_message off # default: on
+
+# Change the number of scrollback lines
+defscrollback 1000 # default: 100
+
+# Configure status bar at the bottom of the terminal
+#hardstatus alwayslastline
+#hardstatus string "%{= kb}[ %=%{w}%?%-Lw%?%{C}(%{W}%n*%f %t%?(%u)%?%{C})%{w}%?%+Lw%?%?%= %{b}][%{C} %Y.%m.%d %{W}%0c %{b}]"
+
+# Turn off the fucking visual bell
+vbell off
+
+# switch windows with F3 (prev) and F4 (next)
+bindkey "^[OR" prev
+bindkey "^[OS" next
 
 # enable 256 color support
 term screen-256color
-                                                                                                                                                                                                           
+
 #end of file
