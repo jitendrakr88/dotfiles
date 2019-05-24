@@ -31,7 +31,9 @@ set encoding=utf-8
 
 " show line number
 set number
-nnoremap <F2> :set nonumber! noai!<CR>
+" enable relative numbers
+set relativenumber
+nnoremap <F2> :set nonumber! noai! rnu!<CR>
 
 " turnoff line numbers
 "set nonumber
