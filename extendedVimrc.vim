@@ -1,8 +1,9 @@
 set nocompatible
-
+set history=500
 " enable syntax
 syntax on
 syntax enable
+let mapleader = ","
 
 " for converting tabs to space, and for handling other tab related issues
 set tabstop=4
@@ -22,30 +23,96 @@ set showmatch
 
 set scrolloff=5
 set backspace=indent,eol,start
-set ttyfast                         " fast scroll
+set ttyfast " fast scroll
 
 " status line
 set laststatus=2
 "set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [CURSOR=%l,%v][%p%%]
 set encoding=utf-8
 
-" show line number
-set number
-" enable relative numbers
-set relativenumber
-nnoremap <F2> :set nonumber! noai! rnu!<CR>
-
-" turnoff line numbers
-"set nonumber
-
 set ruler " show column number in status bar
 
 " indentation
 set autoindent
 filetype on
-"filetype plugin indent on
+filetype plugin on
 
+set noshowmode
+set wrap linebreak
+set nolist
 set wildmenu
+set autoread " auto read if file is changed from outside
+set hidden " hide buffers
+set noerrorbells
+set novisualbell
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" search in vim
+set incsearch       " incremental search
+set hlsearch        " highlight matched items in search
+set ignorecase      " ignore case while search
+set smartcase
+
+" colors for matched search items
+highlight Search cterm=NONE ctermbg=220 ctermfg=0
+
+" Press CTRL+L for removing the highlighted colors after search
+nnoremap <silent> <C-l> :nohl<CR>
+
+set number " show line number
+set relativenumber " enable relative numbers, :+n to go to n lines down, :-n to go to n lines up
+"set nonumber " turn off line numbers
+"set nornu
+function ToggleCopyPaste()
+    :set nonumber! noai! rnu!
+endfunction
+
+nnoremap <F2> :call ToggleCopyPaste() <CR>
+
+" CTRL+m to go to the corresponding opening/closing bracket
+nnoremap <C-m> %
+
+" Jump cursor to begining of file in NORMAL MODE
+nnoremap <C-Home> gg
+nnoremap <C-End> G
+
+" *********************************************************************
+" Done to fix CTRL+Arrow keys issue in screen
+" Some mapping in related to this is present in bashrc as well (do not forgot to include that)
+map <ESC>[5D <C-Left>
+map <ESC>[5C <C-Right>
+map! <ESC>[5D <C-left>
+map! <ESC>[5C <C-Right>
+" *********************************************************************
+
+" TIP- pressing w moves the cursur one word ahead and pressing b moves the
+" cursur one word back, This is the reason I didn't map quick save to q
+
+" in NORMAL mode move to next tab by pressing <Tab> and to previous tab by pressing <Shift-Tab>
+nnoremap <Tab> :tabn<CR>
+nnoremap <S-Tab> :tabp <CR>
+
+" in VISUAL mode, after selecting a block of text, press TAB to indent forward
+" and SHIFT+TAB to indent backwards
+vnoremap <Tab> >gv
+vnoremap <S-Tab> <gv
+
+" fast-save by pressing s in normal mode and keep the file opened
+vnoremap s :w! <CR>
+nnoremap s :w! <CR>
+
+" **************  SPLIT related configs ******************************
+" press leaderkey+s for horizontal split
+nnoremap <leader>s :split<CR>
+" press leaderkey+v for vertical split
+nnoremap <leader>v :vsplit<CR>
+" mappings for moving between the split regions
+noremap <leader>h <C-w>h
+noremap <leader>j <C-w>j
+noremap <leader>k <C-w>k
+noremap <leader>l <C-w>l
+" *******************************************************************
 
 " color scheme for vim and vimdiff
 if &diff
@@ -62,27 +129,7 @@ else
     highlight CursorLine cterm=NONE ctermbg=234
 endif
 
-
-" search in vim
-set incsearch       " incremental search
-set hlsearch        " highlight matched items in search
-set ignorecase      " ignore case while search
-
-" colors for matched search items
-highlight Search cterm=NONE ctermbg=220 ctermfg=0
-
-" Press CTRL+L for removing the highlighted colors after search
-nnoremap <silent> <C-l> :nohl<CR><C-l>
-
-" TIP- pressing w moves the cursur one word ahead and pressing b moves the
-" cursur one word back, This is the reason I didn't map quick save to q
-
-" save by pressing s in normal mode and keep the file opened
-map s :update <CR>
-nnoremap s :update <CR>
-
-set noshowmode
-
+" ********************************************************************
 " Removes trailing spaces
 function TrimWhiteSpace()
     let l = line(".")
@@ -91,7 +138,6 @@ function TrimWhiteSpace()
     call cursor(l, c)           " restore the curser position
 endfunction
 
-"set list listchars=trail:.,extends:>
 autocmd FileWritePre * call TrimWhiteSpace()
 autocmd FileAppendPre * call TrimWhiteSpace()
 autocmd FilterWritePre * call TrimWhiteSpace()
@@ -130,12 +176,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 call airline#parts#define_raw('linenr', '%l')
 call airline#parts#define_accent('linenr', 'bold')
 let g:airline_section_z = airline#section#create(['%3p%%  ', 'linenr', ':%c '])
-
-" move to next tab by pressing <Tab> and
-" to previous tab by pressing <Shift-Tab>
-:nnoremap <Tab> :tabn<CR>
-:nnoremap <S-Tab> :tabp <CR>
-" **********************************************************************
 
 " **********************************************************************
 "Settings for ctrlp plugin to find files by pressing CTRL+p

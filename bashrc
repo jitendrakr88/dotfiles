@@ -127,3 +127,11 @@ if [ -f '/home/seawolf001/Documents/googleAppEngine/google-cloud-sdk/path.bash.i
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/seawolf001/Documents/googleAppEngine/google-cloud-sdk/completion.bash.inc' ]; then . '/home/seawolf001/Documents/googleAppEngine/google-cloud-sdk/completion.bash.inc'; fi
+
+# *************************************
+# for fixing CTRL+Arrow keys wrong behaviour in screen
+bind '"\e[5C": forward-word'
+bind '"\e[5D": backward-word'
+bind '"\e[1;5C": forward-word'
+bind '"\e[1;5D": backward-word'
+# *************************************
