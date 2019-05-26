@@ -34,6 +34,7 @@ set ruler " show column number in status bar
 
 " indentation
 set autoindent
+set smartindent
 filetype on
 filetype plugin on
 
@@ -103,13 +104,14 @@ vnoremap s :w! <CR>
 nnoremap s :w! <CR>
 
 " do not insert newline on selcting items from suggestion menu. Ex. while autocomplete during editing files
-inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+
 
 " **************  SPLIT related configs ******************************
 " press leaderkey+s for horizontal split
+set splitbelow
+set splitright
 nnoremap <leader>s :split<CR>
 " press leaderkey+v for vertical split
 nnoremap <leader>v :vsplit<CR>
@@ -162,14 +164,24 @@ call plug#begin('~/.vim/plugged')
     Plug 'Nopik/vim-nerdtree-direnter',
     Plug 'ctrlpvim/ctrlp.vim',
     Plug 'vim-airline/vim-airline-themes',
- "   Plug 'valloric/youcompleteme',
+""    Plug 'valloric/youcompleteme',
     Plug 'Raimondi/delimitMate',
     Plug 'Shougo/deoplete.nvim'
     Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
+    Plug 'roxma/vim-hug-neovim-rpc',
+    Plug 'mxw/vim-jsx',
+    Plug 'pangloss/vim-javascript'
 call plug#end()
 " Installing plugins ends.
 
+" **********************************************************************
+" Settings for vim-jsx and vim-javascript plugins
+let g:jsx_ext_required = 0
+let g:jsx_pragma_required = 1
+let g:javascript_plugin_jsdoc = 1
+" **********************************************************************
+" Settings for delimitMate plugin
+let delimitMate_expand_cr=1
 " **********************************************************************
 " Settings for deoplete plugin
 let g:deoplete#enable_at_startup = 1
@@ -181,7 +193,7 @@ highlight PmenuSel ctermfg=236 ctermbg=255
 autocmd! VimEnter * call s:fcy_nerdcommenter_map()
 function! s:fcy_nerdcommenter_map()
     " use CTRL+/ to toggle comments, <C-_> might not work in mac.
-    " able to comment only in NORMAL and VISUAL mode
+    " able to comment only in NORMAL and VISUAL mode only
     " mapped recursively, <leader>c<space> is mapping for NERDCommenterToggle
     nmap  <C-_>  <leader>c<space>
     vmap  <C-_>  <leader>c<space>
