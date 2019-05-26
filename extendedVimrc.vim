@@ -42,7 +42,7 @@ set wrap linebreak
 set nolist
 set wildmenu
 set autoread " auto read if file is changed from outside
-set hidden " hide buffers
+"set hidden " hide buffers
 set noerrorbells
 set novisualbell
 " Use Unix as the standard file type
@@ -152,6 +152,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-fugitive',
     Plug 'airblade/vim-gitgutter',
     Plug 'scrooloose/nerdtree',
+    Plug 'scrooloose/nerdcommenter',
     Plug 'Nopik/vim-nerdtree-direnter',
     Plug 'ctrlpvim/ctrlp.vim',
     Plug 'vim-airline/vim-airline-themes'
@@ -159,8 +160,30 @@ call plug#end()
 " Installing plugins ends.
 
 " **********************************************************************
+" Settings for NerdCommenter Plugin
+autocmd! VimEnter * call s:fcy_nerdcommenter_map()
+function! s:fcy_nerdcommenter_map()
+    " use CTRL+/ to toggle comments, <C-_> might not work in mac.
+    " able to comment only in NORMAL and VISUAL mode
+    " mapped recursively, <leader>c<space> is mapping for NERDCommenterToggle
+    nmap  <C-_>  <leader>c<space>
+    vmap  <C-_>  <leader>c<space>
+    " nnoremap <leader>cc <plug>NERDCommenterToggle
+    " vnoremap <leader>cc <plug>NERDCommenterToggle gv
+endfunction
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" **********************************************************************
 " Settings for vim-airline plugin
-let g:airline_theme='luna'
+let g:airline_theme='papercolor'
+let g:airline_solarized_bg='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
