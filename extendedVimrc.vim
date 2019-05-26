@@ -102,6 +102,10 @@ vnoremap <S-Tab> <gv
 vnoremap s :w! <CR>
 nnoremap s :w! <CR>
 
+" do not insert newline on selcting items from suggestion menu. Ex. while autocomplete during editing files
+inoremap <expr> <Space> pumvisible() ? "\<C-y>" : " "
+
+
 " **************  SPLIT related configs ******************************
 " press leaderkey+s for horizontal split
 nnoremap <leader>s :split<CR>
@@ -155,7 +159,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdcommenter',
     Plug 'Nopik/vim-nerdtree-direnter',
     Plug 'ctrlpvim/ctrlp.vim',
-    Plug 'vim-airline/vim-airline-themes'
+    Plug 'vim-airline/vim-airline-themes',
+    Plug 'valloric/youcompleteme',
+    Plug 'townk/vim-autoclose'
 call plug#end()
 " Installing plugins ends.
 
