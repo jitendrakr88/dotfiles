@@ -105,7 +105,9 @@ nnoremap s :w! <CR>
 
 " do not insert newline on selcting items from suggestion menu. Ex. while autocomplete during editing files
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" mapped recursively the default behaviour of Enter key when not selecting from options
+imap <expr> <CR> pumvisible() ? "\<C-y>" : "<Plug>delimitMateCR"
+" inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 
 " **************  SPLIT related configs ******************************
@@ -182,6 +184,7 @@ let g:javascript_plugin_jsdoc = 1
 " **********************************************************************
 " Settings for delimitMate plugin
 let delimitMate_expand_cr=1
+let g:delimitMate_expand_space = 1
 " **********************************************************************
 " Settings for deoplete plugin
 let g:deoplete#enable_at_startup = 1
