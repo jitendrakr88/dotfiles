@@ -103,8 +103,10 @@ vnoremap s :w! <CR>
 nnoremap s :w! <CR>
 
 " do not insert newline on selcting items from suggestion menu. Ex. while autocomplete during editing files
-inoremap <expr> <Space> pumvisible() ? "\<C-y>" : " "
-
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " **************  SPLIT related configs ******************************
 " press leaderkey+s for horizontal split
@@ -160,10 +162,19 @@ call plug#begin('~/.vim/plugged')
     Plug 'Nopik/vim-nerdtree-direnter',
     Plug 'ctrlpvim/ctrlp.vim',
     Plug 'vim-airline/vim-airline-themes',
-    Plug 'valloric/youcompleteme',
-    Plug 'townk/vim-autoclose'
+ "   Plug 'valloric/youcompleteme',
+    Plug 'Raimondi/delimitMate',
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
 call plug#end()
 " Installing plugins ends.
+
+" **********************************************************************
+" Settings for deoplete plugin
+let g:deoplete#enable_at_startup = 1
+highlight Pmenu ctermfg=255 ctermbg=236
+highlight PmenuSel ctermfg=236 ctermbg=255
 
 " **********************************************************************
 " Settings for NerdCommenter Plugin
