@@ -164,7 +164,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree',
     Plug 'scrooloose/nerdcommenter',
     Plug 'Nopik/vim-nerdtree-direnter',
-    Plug 'ctrlpvim/ctrlp.vim',
     Plug 'vim-airline/vim-airline-themes',
 ""    Plug 'valloric/youcompleteme',
     Plug 'Raimondi/delimitMate',
@@ -234,21 +233,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 call airline#parts#define_raw('linenr', '%l')
 call airline#parts#define_accent('linenr', 'bold')
 let g:airline_section_z = airline#section#create(['%3p%%  ', 'linenr', ':%c '])
-
-" **********************************************************************
-"Settings for ctrlp plugin to find files by pressing CTRL+p
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
-
 
 " **********************************************************************
 "  Settings for NerdTree
