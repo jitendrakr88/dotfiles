@@ -66,7 +66,7 @@ set relativenumber " enable relative numbers, :+n to go to n lines down, :-n to 
 "set nonumber " turn off line numbers
 "set nornu
 function ToggleCopyPaste()
-    :set nonumber! noai! rnu!
+    :set nonumber! noai! rnu! nosi! nopaste!
 endfunction
 
 nnoremap <F2> :call ToggleCopyPaste() <CR>
