@@ -189,7 +189,7 @@ let g:delimitMate_expand_space = 1
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 set shortmess+=c
-set cmdheight=2
+set cmdheight=1
 highlight Pmenu ctermfg=255 ctermbg=236
 highlight PmenuSel ctermfg=236 ctermbg=255
 
