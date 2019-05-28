@@ -53,7 +53,7 @@ set ffs=unix,dos,mac
 set incsearch       " incremental search
 set hlsearch        " highlight matched items in search
 set ignorecase      " ignore case while search
-set smartcase
+" set smartcase
 
 " colors for matched search items
 highlight Search cterm=NONE ctermbg=220 ctermfg=0
