@@ -156,7 +156,7 @@ endfunction
 
 function CPPTemplatewithVim()
     0r ~/.vim/templates/base_cplus_plus.cpp
-    call cursor(24,6)
+    call cursor(17,34)
 endfunction
 
 autocmd BufNewFile *.cpp call CPPTemplatewithVim()
