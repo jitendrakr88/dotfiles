@@ -20,7 +20,7 @@ set showmatch
 " enable mouse in vim { mostly not required }
 "set mouse=a
 
-
+:set noswapfile
 set scrolloff=5
 set backspace=indent,eol,start
 set ttyfast " fast scroll
@@ -53,7 +53,7 @@ set ffs=unix,dos,mac
 set incsearch       " incremental search
 set hlsearch        " highlight matched items in search
 set ignorecase      " ignore case while search
-" set smartcase
+set smartcase
 
 " colors for matched search items
 highlight Search cterm=NONE ctermbg=220 ctermfg=0
@@ -66,7 +66,7 @@ set relativenumber " enable relative numbers, :+n to go to n lines down, :-n to 
 "set nonumber " turn off line numbers
 "set nornu
 function ToggleCopyPaste()
-    :set nonumber! noai! rnu! nosi! nopaste!
+    :set nonumber! noai! rnu!
 endfunction
 
 nnoremap <F2> :call ToggleCopyPaste() <CR>
@@ -123,8 +123,14 @@ noremap <leader>j <C-w>j
 noremap <leader>k <C-w>k
 noremap <leader>l <C-w>l
 " *******************************************************************
-
+set laststatus=2
+:command WQ wq
+:command Wq wq
+:command W w
+:command Q q
+" *******************************************************************
 " color scheme for vim and vimdiff
+set t_Co=256
 if &diff
     syntax off
     " adding controls for colors in vimdiff
@@ -148,33 +154,46 @@ function TrimWhiteSpace()
     call cursor(l, c)           " restore the curser position
 endfunction
 
+function CPPTemplatewithVim()
+    0r ~/.vim/templates/base_cplus_plus.cpp
+    call cursor(24,6)
+endfunction
+
+autocmd BufNewFile *.cpp call CPPTemplatewithVim()
 autocmd FileWritePre * call TrimWhiteSpace()
 autocmd FileAppendPre * call TrimWhiteSpace()
 autocmd FilterWritePre * call TrimWhiteSpace()
 autocmd BufWritePre * call TrimWhiteSpace()
 
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
 " *********************************************************************
 " Installing plugins via vim-plug
 " List here all the plugins to be installed
 call plug#begin('~/.vim/plugged')
-"    Plug 'itchyny/lightline.vim',
+    Plug 'filfirst/Monota',
     Plug 'vim-airline/vim-airline',
     Plug 'tpope/vim-fugitive',
     Plug 'airblade/vim-gitgutter',
     Plug 'scrooloose/nerdtree',
     Plug 'scrooloose/nerdcommenter',
     Plug 'Nopik/vim-nerdtree-direnter',
+    Plug 'ctrlpvim/ctrlp.vim',
     Plug 'vim-airline/vim-airline-themes',
-""    Plug 'valloric/youcompleteme',
     Plug 'Raimondi/delimitMate',
     Plug 'Shougo/deoplete.nvim'
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc',
-    Plug 'mxw/vim-jsx',
-    Plug 'pangloss/vim-javascript'
+    Plug 'mhartington/oceanic-next'
 call plug#end()
-" Installing plugins ends.
 
+" Installing plugins ends.
+" **********************************************************************
+" Settings for oceanic-next plugin
+    if (has("termguicolors"))
+        set termguicolors
+    endif
+    colorscheme OceanicNext
 " **********************************************************************
 " Settings for vim-jsx and vim-javascript plugins
 let g:jsx_ext_required = 0
@@ -233,6 +252,21 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 call airline#parts#define_raw('linenr', '%l')
 call airline#parts#define_accent('linenr', 'bold')
 let g:airline_section_z = airline#section#create(['%3p%%  ', 'linenr', ':%c '])
+
+" **********************************************************************
+"Settings for ctrlp plugin to find files by pressing CTRL+p
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  " Windows
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
 
 " **********************************************************************
 "  Settings for NerdTree
