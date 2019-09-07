@@ -57,7 +57,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-		PS1='${debian_chroot:+($debian_chroot)}\[\033[1;35m\]\u\[\033[1;35m\]@\[\033[1;35m\]\h\[\033[1;35m\]:\[\033[0;33m\](\w)\[\033[00m\]\n\$ '
+		PS1='${debian_chroot:+($debian_chroot)}\[\033[0;35m\]\u\[\033[0;35m\]@\[\033[0;35m\]\h\[\033[0;35m\]:\[\033[0;33m\](\w)\[\033[00m\]\n\$ '
 	#PS1="$PS1\n"
 	#PS1='${debian_chroot:+($debian_chroot)}\[\033[1;35m\]\u\[\033[1;35m\]:\[\033[0;33m\]\w\[\033[00m\]\$ '
 else
@@ -129,9 +129,10 @@ if [ -f '/home/seawolf001/Documents/googleAppEngine/google-cloud-sdk/path.bash.i
 if [ -f '/home/seawolf001/Documents/googleAppEngine/google-cloud-sdk/completion.bash.inc' ]; then . '/home/seawolf001/Documents/googleAppEngine/google-cloud-sdk/completion.bash.inc'; fi
 
 # *************************************
-# for fixing CTRL+Arrow keys wrong behaviour in screen
+# for fixing CTRL+Arrow keys wrong behavoir in screen
 bind '"\e[5C": forward-word'
 bind '"\e[5D": backward-word'
 bind '"\e[1;5C": forward-word'
 bind '"\e[1;5D": backward-word'
 # *************************************
+alias copy='xclip -selection clipboard'
