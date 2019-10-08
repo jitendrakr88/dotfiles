@@ -129,6 +129,18 @@ set laststatus=2
 :command W w
 :command Q q
 " *******************************************************************
+function RunFile()
+    " autocmd FileType python :exec '!clear; python3 %'
+    if &filetype ==# 'python'
+        :exec '!:w;clear;python3 %'
+    elseif &filetype ==# 'cpp'
+        :exec '!:w;clear;g++ %;./a.out'
+    elseif &filetype ==# 'js'
+        :exec '!:w;clear;node %;'
+    endif
+endfunction
+:command RUN :call RunFile()
+" *******************************************************************
 " color scheme for vim and vimdiff
 set t_Co=256
 if &diff
