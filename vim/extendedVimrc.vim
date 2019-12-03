@@ -196,7 +196,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'Shougo/deoplete.nvim'
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc',
-    Plug 'mhartington/oceanic-next'
+    Plug 'mhartington/oceanic-next',
+    Plug 'MattesGroeger/vim-bookmarks'
 call plug#end()
 
 " Installing plugins ends.
