@@ -137,9 +137,18 @@ function RunFile()
         :exec '!:w;clear;g++ %;./a.out'
     elseif &filetype ==# 'js'
         :exec '!:w;clear;node %;'
+    elseif &filetype ==# 'go'
+        :exec '!:w;clear;go run %'
+    elseif &filetype ==# 'php'
+        :exec '!:w;clear;php %'
     endif
 endfunction
 :command RUN :call RunFile()
+
+function COPY()
+    :exec 'cat % | xclip -selection clipboard'
+endfunction
+:command COPY :call COPY()
 " *******************************************************************
 " color scheme for vim and vimdiff
 set t_Co=256
@@ -162,16 +171,22 @@ endif
 function TrimWhiteSpace()
     let l = line(".")
     let c = col(".")
-    :keeppatterns %s/\s\+$//e   " keeppatterns for restroing the search patterns even after TrimWhiteSpaces()
+    :keeppatterns %s/\s\+$//e   " keeppatterns for restoring the search patterns even after TrimWhiteSpaces()
     call cursor(l, c)           " restore the curser position
 endfunction
 
 function CPPTemplatewithVim()
     0r ~/.vim/templates/base_cplus_plus.cpp
-    call cursor(17,34)
+    call cursor(11,31)
+endfunction
+
+function PythonTemplateWithVim()
+    0r ~/.vim/templates/base_python_template.py
+    call cursor(5,25)
 endfunction
 
 autocmd BufNewFile *.cpp call CPPTemplatewithVim()
+autocmd BufNewFile *.py call PythonTemplateWithVim()
 autocmd FileWritePre * call TrimWhiteSpace()
 autocmd FileAppendPre * call TrimWhiteSpace()
 autocmd FilterWritePre * call TrimWhiteSpace()
