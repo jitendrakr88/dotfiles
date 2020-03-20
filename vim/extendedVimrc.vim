@@ -5,6 +5,13 @@ syntax on
 syntax enable
 let mapleader = ","
 
+" Enable folds in vim.
+" set foldmethod=indent
+" set foldnestmax=10
+" set nofoldenable
+" set foldlevel=2
+" **********************
+
 " for converting tabs to space, and for handling other tab related issues
 set tabstop=4
 set shiftwidth=4
