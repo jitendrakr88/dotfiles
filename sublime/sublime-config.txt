@@ -3,10 +3,10 @@
     "auto_complete_commit_on_tab": true,
     "auto_complete_with_fields": true,
     "bold_folder_labels": false,
-    "color_scheme": "Packages/Material Theme/schemes/Material-Theme.tmTheme",
+    "color_scheme": "Packages/Xcode Colors/Xcode Default.sublime-color-scheme",
     "default_encoding": "UTF-8",
     "detect_indentation": true,
-    "font_face": "Monaco",
+    "font_face": "SF Mono Regular",
     "font_options":
     [
         "no_italic"
@@ -21,7 +21,7 @@
     "line_padding_bottom": 1,
     "line_padding_top": 1,
     "tab_size": 4,
-    "theme": "Adaptive.sublime-theme",
+    "theme": "Default.sublime-theme",
     "translate_tabs_to_spaces": true,
     "trim_trailing_white_space_on_save": true,
     "word_wrap": true
