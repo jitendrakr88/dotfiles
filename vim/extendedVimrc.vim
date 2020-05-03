@@ -153,9 +153,9 @@ endfunction
 :command RUN :call RunFile()
 
 function COPY()
-    :exec 'cat % | xclip -selection clipboard'
+    :exec '!cat % | xclip -selection clipboard'
 endfunction
-:command COPY :call COPY()
+:command CP :call COPY()
 " *******************************************************************
 " color scheme for vim and vimdiff
 set t_Co=256
@@ -187,13 +187,13 @@ function CPPTemplatewithVim()
     call cursor(11,31)
 endfunction
 
-function PythonTemplateWithVim()
-    0r ~/.vim/templates/base_python_template.py
-    call cursor(5,25)
-endfunction
+" function PythonTemplateWithVim()
+"     0r ~/.vim/templates/base_python_template.py
+"     call cursor(5,25)
+" endfunction
 
 autocmd BufNewFile *.cpp call CPPTemplatewithVim()
-autocmd BufNewFile *.py call PythonTemplateWithVim()
+" autocmd BufNewFile *.py call PythonTemplateWithVim()
 autocmd FileWritePre * call TrimWhiteSpace()
 autocmd FileAppendPre * call TrimWhiteSpace()
 autocmd FilterWritePre * call TrimWhiteSpace()
