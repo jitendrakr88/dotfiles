@@ -1,0 +1,30 @@
+
+[alias]
+mine = resolve -t internal:local # resolve and mine when conflict occurs
+theirs = resolve -t internal:other # resolve and keep theirs if conflict occurs
+pull = pull --insecure
+push = push --insecure
+log  = log -l 5 -b . # last 5 commits of current branch
+status = status "" # relative paths
+revert = revert --no-backup # do not create .orig files
+
+[diff]
+git = True
+
+[extenstions]
+color=
+hgext.extdiff =
+
+[color]
+mode=terminfo
+status.modified = yellow
+status.added = green
+status.removed = red
+status.deleted = cyan
+status.unknown = bold
+status.ignored = bold
+
+[extdiff]
+cmd.vimdiff =
+
+
