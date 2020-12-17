@@ -1,52 +1,84 @@
+" Use Vim settings, rather then Vi settings (much better!). "
+" This must be first, because it changes other options as a side effect."
 set nocompatible
-set history=500
+
+"================ General ====================== "
+let mapleader = ","
+set t_Co=256
+set history=500                 " Store lots of :cmdline history"
+set number                      " Line numbers"
+set relativenumber              " Relative line numbers"
+set showcmd                     " Show incomplete cmds down the bottom"
+set showmatch                   " Show matching brackets when text indicator is over them"
+set ruler
+set noshowmode
+set wrap linebreak
+set nolist
+set autoread                    " Set to auto read when a file is changed from the outside"
+set noerrorbells                " No annoying sound on errors"
+set novisualbell                " No annoying sound on errors"
+set ffs=unix,dos,mac            " Use Unix as the standard file type "
+set encoding=utf-8              " Set utf8 as standard encoding and en_US as the standard language"
+set backspace=indent,eol,start  " Configure backspace so it acts as it should act"
+
+"================ syntax highlighting ====================== "
 syntax on
 syntax enable
-let mapleader = ","
+
+" ================ Indentation ================ "
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set showcmd
-set showmatch
-:set noswapfile
-set scrolloff=5
-set backspace=indent,eol,start
-set ttyfast
-set laststatus=2
-set encoding=utf-8
-set ruler
 set autoindent
 set smartindent
+set smarttab
 filetype on
 filetype plugin on
-set noshowmode
-set wrap linebreak
-set nolist
-set wildmenu
-set autoread
-set noerrorbells
-set novisualbell
-set ffs=unix,dos,mac
+filetype indent on
+
+" ================ Completion ================ "
+
+set wildmode=list:longest
+set wildmenu                        "enable ctrl-n and ctrl-p to scroll thru matches"
+set wildignore=*.o,*.obj,*~         "stuff to ignore when tab completing"
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+
+" ================ Scrolling ======================== "
+
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins"
+set sidescrolloff=15
+set sidescroll=1
+set ttyfast
+set scrolloff=5
+
+" ================ Turn Off Swap Files ============== "
+:set noswapfile
+set nobackup
+set nowb
+
+
+" ================ Scrolling ======================== "
 set incsearch       " incremental search "
 set hlsearch        " highlight matched items in search "
 set ignorecase      " ignore case while search "
 set smartcase
-set laststatus=2
-set t_Co=256
+highlight Search cterm=NONE ctermbg=220 ctermfg=0       " colors for matched search items "
+nnoremap <silent> <C-l> :nohl<CR>                       " Press CTRL+L for removing the highlighted colors after search "
 
+" ================ Some commands ======================== "
 :command WQ wq
 :command Wq wq
 :command W w
 :command Q q
-
-" colors for matched search items "
-highlight Search cterm=NONE ctermbg=220 ctermfg=0
-
-" Press CTRL+L for removing the highlighted colors after search "
-nnoremap <silent> <C-l> :nohl<CR>
-set number
-set relativenumber
 
 " CTRL+m to go to the corresponding opening/closing bracket "
 nnoremap <C-m> %
@@ -73,6 +105,10 @@ noremap <leader>h <C-w>h
 noremap <leader>j <C-w>j
 noremap <leader>k <C-w>k
 noremap <leader>l <C-w>l
+
+" ====================== Return to last edit position when opening files (You want this!) ======================"
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+set viminfo^=% " Remember info about open buffers on close "
 
 " ============================ Execute file right from inside of vim ====================================== "
 function RunFile()
@@ -131,15 +167,22 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
 " ========================== Installing plugins via vim-plug.  ============================ "
 call plug#begin('~/.vim/plugged')
-    Plug 'vim-airline/vim-airline',
-    Plug 'scrooloose/nerdtree',
-    Plug 'scrooloose/nerdcommenter',
-    Plug 'Nopik/vim-nerdtree-direnter',
-    Plug 'vim-airline/vim-airline-themes',
-    Plug 'mhartington/oceanic-next',
-    Plug 'MattesGroeger/vim-bookmarks',
-    Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+    Plug 'vim-airline/vim-airline',                             "Lean & mean status/tabline for vim that's light as air."
+    Plug 'tpope/vim-fugitive',                                  "Vim plugin for Git"
+    Plug 'scrooloose/nerdtree',                                 "NERDTree is a file system explorer for the Vim"
+    Plug 'scrooloose/nerdcommenter',                            "Comment functions so powerful—no comment necessary. Works for linux"
+    Plug 'Nopik/vim-nerdtree-direnter',                         "Vim NERDTree plugin and set NERDTreeMapOpenInTab to '',"
+    Plug 'vim-airline/vim-airline-themes',                      "official theme repository for vim-airline"
+    Plug 'mhartington/oceanic-next',                            "Color theme"
+    Plug 'MattesGroeger/vim-bookmarks',                         "Bookmarks in vim"
+    Plug 'kaicataldo/material.vim', { 'branch': 'main' }        "Material theme colorscheme for vim"
+    Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
+    Plug 'jiangmiao/auto-pairs'                                 "Insert or delete brackets, parens, quotes in pair."
 call plug#end()
+
+" =========================  vim-commentary specially for macbook ============================="
+nmap  <leader>/ :Commentary<cr>
+vmap  <leader>/   :Commentary<cr>
 
 " ============================ Material Theme ============================="
 let g:material_terminal_italics = 1
@@ -148,19 +191,15 @@ colorscheme material
 let g:airline_theme = 'material'
 
 "  ============================ NerdCommenter Plugin ============================ "
-" Add spaces after comment delimiters by default "
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments"
-let g:NERDCompactSexyComs = 1
-" Allow commenting and inverting empty lines (useful when commenting a region) "
-let g:NERDCommentEmptyLines = 1
-" Align line-wise comment delimiters flush left instead of following code indentation "
-let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1                       " Add spaces after comment delimiters by default "
+let g:NERDCompactSexyComs = 1                   " Use compact syntax for prettified multi-line comments"
+let g:NERDCommentEmptyLines = 1                 " Allow commenting and inverting empty lines (useful when commenting a region) "
+let g:NERDDefaultAlign = 'left'                 " Align line-wise comment delimiters flush left instead of following code indentation "
 autocmd! VimEnter * call s:fcy_nerdcommenter_map()
 function! s:fcy_nerdcommenter_map()
     " use CTRL+/ to toggle comments, <C-_> might not work in mac. Mapped recursively, <leader>c<space> is mapping for NERDCommenterToggle"
-    nmap  <C-_>  <leader>c<space>
-    vmap  <C-_>  <leader>c<space>
+    nmap  <C-_>  <leader>c<space> "Linux"
+    vmap  <C-_>  <leader>c<space> "Linux"
 endfunction
 
 " ============================= vim-airline ================================== "
