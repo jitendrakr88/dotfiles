@@ -173,22 +173,25 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdcommenter',                            "Comment functions so powerful—no comment necessary. Works for linux"
     Plug 'Nopik/vim-nerdtree-direnter',                         "Vim NERDTree plugin and set NERDTreeMapOpenInTab to '',"
     Plug 'vim-airline/vim-airline-themes',                      "official theme repository for vim-airline"
-    Plug 'mhartington/oceanic-next',                            "Color theme"
     Plug 'MattesGroeger/vim-bookmarks',                         "Bookmarks in vim"
-    Plug 'kaicataldo/material.vim', { 'branch': 'main' }        "Material theme colorscheme for vim"
     Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
-    Plug 'jiangmiao/auto-pairs'                                 "Insert or delete brackets, parens, quotes in pair."
+    Plug 'jiangmiao/auto-pairs',                                 "Insert or delete brackets, parens, quotes in pair."
+    Plug 'arzg/vim-colors-xcode',
+    Plug 'nickaroot/vim-xcode-dark-theme'
 call plug#end()
 
-" =========================  vim-commentary specially for macbook ============================="
+"=========================  vim-commentary specially for macbook ============================="
 nmap  <leader>/ :Commentary<cr>
 vmap  <leader>/   :Commentary<cr>
 
-" ============================ Material Theme ============================="
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'default'
-colorscheme material
-let g:airline_theme = 'material'
+"=========================  arzg/vim-colors-xcode settings ============================="
+colorscheme xcodedarkhc
+" For Italic comments "
+augroup vim-colors-xcode
+    autocmd!
+augroup END
+autocmd vim-colors-xcode ColorScheme * hi Comment        cterm=italic gui=italic
+autocmd vim-colors-xcode ColorScheme * hi SpecialComment cterm=italic gui=italic
 
 "  ============================ NerdCommenter Plugin ============================ "
 let g:NERDSpaceDelims = 1                       " Add spaces after comment delimiters by default "
@@ -203,7 +206,7 @@ function! s:fcy_nerdcommenter_map()
 endfunction
 
 " ============================= vim-airline ================================== "
-let g:airline_theme='papercolor'
+let g:airline_theme='minimalist'
 let g:airline_solarized_bg='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
