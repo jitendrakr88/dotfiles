@@ -7,7 +7,8 @@
     username = jitendrakr88
 
 [alias]
-    lg  = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --
+    s = status -s
+    logp = log --graph --pretty=format:"%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit --date=relative --
 
 [diff]
     tool = vimdiff
