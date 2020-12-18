@@ -7,8 +7,8 @@
     username = jitendrakr88
 
 [alias]
-    s = status -s
-    lp = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --
+    s = status
+    pl = log --graph --pretty=format:'%Cred%h%Creset %C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --
 
 [diff]
     tool = vimdiff
@@ -18,7 +18,8 @@
     trustExitCode = true
 
 [credential]
-	helper = cache --timeout=3600
+    helper = osxkeychain
+    useHttpPath = true
 
 [color]
   ui = always
@@ -39,3 +40,8 @@
     current = yellow
 	local = green
     remote = cyan
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
