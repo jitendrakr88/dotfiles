@@ -70,7 +70,6 @@ set nowb
 set incsearch       " incremental search "
 set hlsearch        " highlight matched items in search "
 set ignorecase      " ignore case while search "
-set smartcase
 highlight Search cterm=NONE ctermbg=220 ctermfg=0       " colors for matched search items "
 nnoremap <silent> <C-l> :nohl<CR>                       " Press CTRL+L for removing the highlighted colors after search "
 
@@ -127,7 +126,7 @@ endfunction
 :command RUN :call RunFile()
 
 function COPY()
-    :exec '!cat % | xclip -selection clipboard'
+    :exec '!cat % | pbcopy'
 endfunction
 :command CP :call COPY()
 
@@ -175,23 +174,13 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline-themes',                      "official theme repository for vim-airline"
     Plug 'MattesGroeger/vim-bookmarks',                         "Bookmarks in vim"
     Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
-    Plug 'jiangmiao/auto-pairs',                                 "Insert or delete brackets, parens, quotes in pair."
-    Plug 'arzg/vim-colors-xcode',
-    Plug 'nickaroot/vim-xcode-dark-theme'
+    Plug 'jiangmiao/auto-pairs',                                "Insert or delete brackets, parens, quotes in pair."
+    Plug 'arzg/vim-colors-xcode',                               "Colorscheme"
+    Plug 'nickaroot/vim-xcode-dark-theme',                      "Colorsheme"
 call plug#end()
 
-"=========================  vim-commentary specially for macbook ============================="
-nmap  <leader>/ :Commentary<cr>
-vmap  <leader>/   :Commentary<cr>
+"Obviously the last settings for any thing lets say colorsheme, will override the previous ones."
 
-"=========================  arzg/vim-colors-xcode settings ============================="
-colorscheme xcodedarkhc
-" For Italic comments "
-augroup vim-colors-xcode
-    autocmd!
-augroup END
-autocmd vim-colors-xcode ColorScheme * hi Comment        cterm=italic gui=italic
-autocmd vim-colors-xcode ColorScheme * hi SpecialComment cterm=italic gui=italic
 
 "  ============================ NerdCommenter Plugin ============================ "
 let g:NERDSpaceDelims = 1                       " Add spaces after comment delimiters by default "
@@ -249,4 +238,25 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " Expand and collapse folders in NERDTree "
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+
+"=========================  vim-commentary specially for macbook ============================="
+nmap  <silent> <leader>/ :Commentary<cr>
+vmap  <silent> <leader>/ :Commentary<cr>
+
+"=========================  arzg/vim-colors-xcode settings ============================="
+colorscheme xcodedarkhc
+" For Italic comments "
+augroup vim-colors-xcode
+    autocmd!
+augroup END
+autocmd vim-colors-xcode ColorScheme * hi Comment        cterm=italic gui=italic
+autocmd vim-colors-xcode ColorScheme * hi SpecialComment cterm=italic gui=italic
+
+"========================= nickaroot/vim-xcode-dark-theme ============================="
+if (has("termguicolors"))
+  set termguicolors
+endif
+set background=dark
+colorscheme hybrid_material
+let g:airline_theme = "hybrid"
 
