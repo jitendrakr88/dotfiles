@@ -21,6 +21,12 @@ set ffs=unix,dos,mac            " Use Unix as the standard file type "
 set encoding=utf-8              " Set utf8 as standard encoding and en_US as the standard language"
 set backspace=indent,eol,start  " Configure backspace so it acts as it should act"
 
+
+"========================== current line or cursorline ==============="
+set cursorline
+highlight CursorLine cterm=NONE ctermbg=238
+
+
 "================ syntax highlighting ====================== "
 syntax on
 syntax enable
@@ -139,10 +145,6 @@ if &diff
     highlight DiffDelete cterm=NONE ctermfg=15 ctermbg=124
     highlight DiffChange cterm=NONE ctermfg=15 ctermbg=22
     highlight DiffText   cterm=NONE ctermfg=15 ctermbg=88
-else
-    " adding colors for highlighting current cursor line "
-    set cursorline
-    highlight CursorLine cterm=NONE ctermbg=234
 endif
 
 " ========================== Removes trailing spaces ========================== "
@@ -175,8 +177,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'MattesGroeger/vim-bookmarks',                         "Bookmarks in vim"
     Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
     Plug 'jiangmiao/auto-pairs',                                "Insert or delete brackets, parens, quotes in pair."
-    Plug 'arzg/vim-colors-xcode',                               "Colorscheme"
-    Plug 'nickaroot/vim-xcode-dark-theme',                      "Colorsheme"
+    Plug 'ulwlu/elly.vim'
 call plug#end()
 
 "Obviously the last settings for any thing lets say colorsheme, will override the previous ones."
@@ -242,21 +243,9 @@ let g:NERDTreeDirArrowCollapsible = '▾'
 "=========================  vim-commentary specially for macbook ============================="
 nmap  <silent> <leader>/ :Commentary<cr>
 vmap  <silent> <leader>/ :Commentary<cr>
+nmap  <silent> <C-/> :Commentary<cr>
+autocmd FileType php setlocal commentstring=#\ %s "Added support for php as well"
 
-"=========================  arzg/vim-colors-xcode settings ============================="
-colorscheme xcodedarkhc
-" For Italic comments "
-augroup vim-colors-xcode
-    autocmd!
-augroup END
-autocmd vim-colors-xcode ColorScheme * hi Comment        cterm=italic gui=italic
-autocmd vim-colors-xcode ColorScheme * hi SpecialComment cterm=italic gui=italic
-
-"========================= nickaroot/vim-xcode-dark-theme ============================="
-if (has("termguicolors"))
-  set termguicolors
-endif
-set background=dark
-colorscheme hybrid_material
-let g:airline_theme = "hybrid"
-
+" ================================== ulwlu/elly.vim =========================== "
+set termguicolors
+colorscheme elly
