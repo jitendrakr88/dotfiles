@@ -2,7 +2,9 @@
 " This must be first, because it changes other options as a side effect."
 set nocompatible
 
-"================ General ====================== "
+" NOTE: termguicolors are supported by iterm but not by the mac terminal. "
+
+" ================ General ====================== "
 let mapleader = ","
 set t_Co=256
 set history=500                 " Store lots of :cmdline history"
@@ -177,11 +179,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'MattesGroeger/vim-bookmarks',                         "Bookmarks in vim"
     Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
     Plug 'jiangmiao/auto-pairs',                                "Insert or delete brackets, parens, quotes in pair."
-    Plug 'ulwlu/elly.vim'
 call plug#end()
 
-"Obviously the last settings for any thing lets say colorsheme, will override the previous ones."
+" NOTE: https://github.com/tomasr/molokai seems a promising colorscheme."
+" Added this one in ~/.vim/colors/ and its settings somewhere below in here.
 
+" Obviously the last settings for any thing lets say colorsheme, will override the previous ones."
 
 "  ============================ NerdCommenter Plugin ============================ "
 let g:NERDSpaceDelims = 1                       " Add spaces after comment delimiters by default "
@@ -246,6 +249,8 @@ vmap  <silent> <leader>/ :Commentary<cr>
 nmap  <silent> <C-/> :Commentary<cr>
 autocmd FileType php setlocal commentstring=#\ %s "Added support for php as well"
 
-" ================================== ulwlu/elly.vim =========================== "
-set termguicolors
-colorscheme elly
+" ================================== tomasr/molokai settings =========================== "
+colorscheme molokai
+let g:molokai_original = 1
+let g:rehash256 = 1
+
