@@ -27,7 +27,7 @@ set backspace=indent,eol,start  " Configure backspace so it acts as it should ac
 "========================== current line or cursorline ==============="
 set cursorline
 highlight CursorLine cterm=NONE ctermbg=238
-
+hi Directory ctermfg=8
 
 "================ syntax highlighting ====================== "
 syntax on
@@ -179,10 +179,9 @@ call plug#begin('~/.vim/plugged')
     Plug 'MattesGroeger/vim-bookmarks',                         "Bookmarks in vim"
     Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
     Plug 'jiangmiao/auto-pairs',                                "Insert or delete brackets, parens, quotes in pair."
+    Plug 'aonemd/kuroi.vim'                                     "Good colorscheme"
+    Plug 'sjl/badwolf'
 call plug#end()
-
-" NOTE: https://github.com/tomasr/molokai seems a promising colorscheme."
-" Added this one in ~/.vim/colors/ and its settings somewhere below in here.
 
 " Obviously the last settings for any thing lets say colorsheme, will override the previous ones."
 
@@ -194,8 +193,9 @@ let g:NERDDefaultAlign = 'left'                 " Align line-wise comment delimi
 autocmd! VimEnter * call s:fcy_nerdcommenter_map()
 function! s:fcy_nerdcommenter_map()
     " use CTRL+/ to toggle comments, <C-_> might not work in mac. Mapped recursively, <leader>c<space> is mapping for NERDCommenterToggle"
-    nmap  <C-_>  <leader>c<space> "Linux"
-    vmap  <C-_>  <leader>c<space> "Linux"
+    " works for Linux. Have used different plugin for mac. "
+    nmap  <C-_>  <leader>c<space>
+    vmap  <C-_>  <leader>c<space>
 endfunction
 
 " ============================= vim-airline ================================== "
@@ -249,8 +249,14 @@ vmap  <silent> <leader>/ :Commentary<cr>
 nmap  <silent> <C-/> :Commentary<cr>
 autocmd FileType php setlocal commentstring=#\ %s "Added support for php as well"
 
-" ================================== tomasr/molokai settings =========================== "
-colorscheme molokai
-" let g:molokai_original = 1
-let g:rehash256 = 1
-hi Directory ctermfg=8
+" ================================== aonemd/kuroi.vim settings =========================== "
+set background=dark   "or use the light theme: set background=light"
+colorscheme kuroi
+
+" ================================== sjl/badwolf settings =========================== "
+colorscheme badwolf
+let g:badwolf_darkgutter = 1 " Make the gutters darker than the background."
+let g:badwolf_tabline = 2 " Make the tab line lighter than the background."
+let g:badwolf_html_link_underline = 0 " Turn off HTML link underlining"
+let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting "
+
