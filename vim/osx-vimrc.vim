@@ -122,7 +122,7 @@ function RunFile()
     if &filetype ==# 'python'
         :exec '!:w;clear;python3 %'
     elseif &filetype ==# 'cpp'
-        :exec '!:w;clear;g++ %;./a.out'
+        :exec '!:w;clear;g++ -std=c++14 %;./a.out'
     elseif &filetype ==# 'js'
         :exec '!:w;clear;node %;'
     elseif &filetype ==# 'go'
@@ -180,7 +180,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
     Plug 'jiangmiao/auto-pairs',                                "Insert or delete brackets, parens, quotes in pair."
     Plug 'aonemd/kuroi.vim'                                     "Good colorscheme"
-    Plug 'sjl/badwolf'
+    Plug 'sjl/badwolf',
 call plug#end()
 
 " Obviously the last settings for any thing lets say colorsheme, will override the previous ones."
