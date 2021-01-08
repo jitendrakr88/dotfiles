@@ -1,52 +1,91 @@
+" Use Vim settings, rather then Vi settings (much better!). "
+" This must be first, because it changes other options as a side effect."
 set nocompatible
-set history=500
+
+" NOTE: termguicolors are supported by iterm but not by the mac terminal. "
+
+" ================ General ====================== "
+let mapleader = ","
+set t_Co=256
+set history=500                 " Store lots of :cmdline history"
+set number                      " Line numbers"
+set relativenumber              " Relative line numbers"
+set showcmd                     " Show incomplete cmds down the bottom"
+set showmatch                   " Show matching brackets when text indicator is over them"
+set ruler
+set noshowmode
+set wrap linebreak
+set nolist
+set autoread                    " Set to auto read when a file is changed from the outside"
+set noerrorbells                " No annoying sound on errors"
+set novisualbell                " No annoying sound on errors"
+set ffs=unix,dos,mac            " Use Unix as the standard file type "
+set encoding=utf-8              " Set utf8 as standard encoding and en_US as the standard language"
+set backspace=indent,eol,start  " Configure backspace so it acts as it should act"
+
+
+"========================== current line or cursorline ==============="
+set cursorline
+highlight CursorLine cterm=NONE ctermbg=238
+hi Directory ctermfg=8
+
+"================ syntax highlighting ====================== "
 syntax on
 syntax enable
-let mapleader = ","
+
+" ================ Indentation ================ "
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
-set showcmd
-set showmatch
-:set noswapfile
-set scrolloff=5
-set backspace=indent,eol,start
-set ttyfast
-set laststatus=2
-set encoding=utf-8
-set ruler
 set autoindent
 set smartindent
+set smarttab
 filetype on
 filetype plugin on
-set noshowmode
-set wrap linebreak
-set nolist
-set wildmenu
-set autoread
-set noerrorbells
-set novisualbell
-set ffs=unix,dos,mac
+filetype indent on
+
+" ================ Completion ================ "
+
+set wildmode=list:longest
+set wildmenu                        "enable ctrl-n and ctrl-p to scroll thru matches"
+set wildignore=*.o,*.obj,*~         "stuff to ignore when tab completing"
+set wildignore+=*vim/backups*
+set wildignore+=*sass-cache*
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+
+" ================ Scrolling ======================== "
+
+set scrolloff=8         "Start scrolling when we're 8 lines away from margins"
+set sidescrolloff=15
+set sidescroll=1
+set ttyfast
+set scrolloff=5
+
+" ================ Turn Off Swap Files ============== "
+:set noswapfile
+set nobackup
+set nowb
+
+
+" ================ Scrolling ======================== "
 set incsearch       " incremental search "
 set hlsearch        " highlight matched items in search "
 set ignorecase      " ignore case while search "
-set smartcase
-set laststatus=2
-set t_Co=256
+highlight Search cterm=NONE ctermbg=220 ctermfg=0       " colors for matched search items "
+nnoremap <silent> <C-l> :nohl<CR>                       " Press CTRL+L for removing the highlighted colors after search "
 
+" ================ Some commands ======================== "
 :command WQ wq
 :command Wq wq
 :command W w
 :command Q q
-
-" colors for matched search items "
-highlight Search cterm=NONE ctermbg=220 ctermfg=0
-
-" Press CTRL+L for removing the highlighted colors after search "
-nnoremap <silent> <C-l> :nohl<CR>
-set number
-set relativenumber
 
 " CTRL+m to go to the corresponding opening/closing bracket "
 nnoremap <C-m> %
@@ -74,12 +113,16 @@ noremap <leader>j <C-w>j
 noremap <leader>k <C-w>k
 noremap <leader>l <C-w>l
 
+" ====================== Return to last edit position when opening files (You want this!) ======================"
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+set viminfo^=% " Remember info about open buffers on close "
+
 " ============================ Execute file right from inside of vim ====================================== "
 function RunFile()
     if &filetype ==# 'python'
         :exec '!:w;clear;python3 %'
     elseif &filetype ==# 'cpp'
-        :exec '!:w;clear;g++ %;./a.out'
+        :exec '!:w;clear;g++ -std=c++14 %;./a.out'
     elseif &filetype ==# 'js'
         :exec '!:w;clear;node %;'
     elseif &filetype ==# 'go'
@@ -91,7 +134,7 @@ endfunction
 :command RUN :call RunFile()
 
 function COPY()
-    :exec '!cat % | xclip -selection clipboard'
+    :exec '!cat % | pbcopy'
 endfunction
 :command CP :call COPY()
 
@@ -104,10 +147,6 @@ if &diff
     highlight DiffDelete cterm=NONE ctermfg=15 ctermbg=124
     highlight DiffChange cterm=NONE ctermfg=15 ctermbg=22
     highlight DiffText   cterm=NONE ctermfg=15 ctermbg=88
-else
-    " adding colors for highlighting current cursor line "
-    set cursorline
-    highlight CursorLine cterm=NONE ctermbg=234
 endif
 
 " ========================== Removes trailing spaces ========================== "
@@ -131,40 +170,36 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
 " ========================== Installing plugins via vim-plug.  ============================ "
 call plug#begin('~/.vim/plugged')
-    Plug 'vim-airline/vim-airline',
-    Plug 'scrooloose/nerdtree',
-    Plug 'scrooloose/nerdcommenter',
-    Plug 'Nopik/vim-nerdtree-direnter',
-    Plug 'vim-airline/vim-airline-themes',
-    Plug 'mhartington/oceanic-next',
-    Plug 'MattesGroeger/vim-bookmarks',
-    Plug 'kaicataldo/material.vim', { 'branch': 'main' }
+    Plug 'vim-airline/vim-airline',                             "Lean & mean status/tabline for vim that's light as air."
+    Plug 'tpope/vim-fugitive',                                  "Vim plugin for Git"
+    Plug 'scrooloose/nerdtree',                                 "NERDTree is a file system explorer for the Vim"
+    Plug 'scrooloose/nerdcommenter',                            "Comment functions so powerful—no comment necessary. Works for linux"
+    Plug 'Nopik/vim-nerdtree-direnter',                         "Vim NERDTree plugin and set NERDTreeMapOpenInTab to '',"
+    Plug 'vim-airline/vim-airline-themes',                      "official theme repository for vim-airline"
+    Plug 'MattesGroeger/vim-bookmarks',                         "Bookmarks in vim"
+    Plug 'tpope/vim-commentary',                                "Toggle comments using <leader>/ works for mac"
+    Plug 'jiangmiao/auto-pairs',                                "Insert or delete brackets, parens, quotes in pair."
+    Plug 'aonemd/kuroi.vim'                                     "Good colorscheme"
+    Plug 'sjl/badwolf',
 call plug#end()
 
-" ============================ Material Theme ============================="
-let g:material_terminal_italics = 1
-let g:material_theme_style = 'default'
-colorscheme material
-let g:airline_theme = 'material'
+" Obviously the last settings for any thing lets say colorsheme, will override the previous ones."
 
 "  ============================ NerdCommenter Plugin ============================ "
-" Add spaces after comment delimiters by default "
-let g:NERDSpaceDelims = 1
-" Use compact syntax for prettified multi-line comments"
-let g:NERDCompactSexyComs = 1
-" Allow commenting and inverting empty lines (useful when commenting a region) "
-let g:NERDCommentEmptyLines = 1
-" Align line-wise comment delimiters flush left instead of following code indentation "
-let g:NERDDefaultAlign = 'left'
+let g:NERDSpaceDelims = 1                       " Add spaces after comment delimiters by default "
+let g:NERDCompactSexyComs = 1                   " Use compact syntax for prettified multi-line comments"
+let g:NERDCommentEmptyLines = 1                 " Allow commenting and inverting empty lines (useful when commenting a region) "
+let g:NERDDefaultAlign = 'left'                 " Align line-wise comment delimiters flush left instead of following code indentation "
 autocmd! VimEnter * call s:fcy_nerdcommenter_map()
 function! s:fcy_nerdcommenter_map()
     " use CTRL+/ to toggle comments, <C-_> might not work in mac. Mapped recursively, <leader>c<space> is mapping for NERDCommenterToggle"
+    " works for Linux. Have used different plugin for mac. "
     nmap  <C-_>  <leader>c<space>
     vmap  <C-_>  <leader>c<space>
 endfunction
 
 " ============================= vim-airline ================================== "
-let g:airline_theme='papercolor'
+let g:airline_theme='minimalist'
 let g:airline_solarized_bg='dark'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ' '
@@ -207,4 +242,21 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 " Expand and collapse folders in NERDTree "
 let g:NERDTreeDirArrowExpandable = '▸'
 let g:NERDTreeDirArrowCollapsible = '▾'
+
+"=========================  vim-commentary specially for macbook ============================="
+nmap  <silent> <leader>/ :Commentary<cr>
+vmap  <silent> <leader>/ :Commentary<cr>
+nmap  <silent> <C-/> :Commentary<cr>
+autocmd FileType php setlocal commentstring=#\ %s "Added support for php as well"
+
+" ================================== aonemd/kuroi.vim settings =========================== "
+set background=dark   "or use the light theme: set background=light"
+colorscheme kuroi
+
+" ================================== sjl/badwolf settings =========================== "
+colorscheme badwolf
+let g:badwolf_darkgutter = 1 " Make the gutters darker than the background."
+let g:badwolf_tabline = 2 " Make the tab line lighter than the background."
+let g:badwolf_html_link_underline = 0 " Turn off HTML link underlining"
+let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting "
 
