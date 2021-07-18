@@ -8,7 +8,7 @@ set nocompatible
 let mapleader = ","
 set t_Co=256
 set history=500                 " Store lots of :cmdline history"
-set number                      " Line numbers"
+" set number                      " Line numbers"
 set relativenumber              " Relative line numbers"
 set showcmd                     " Show incomplete cmds down the bottom"
 set showmatch                   " Show matching brackets when text indicator is over them"
@@ -62,7 +62,7 @@ set wildignore+=*.png,*.jpg,*.gif
 
 " ================ Scrolling ======================== "
 
-set scrolloff=8         "Start scrolling when we're 8 lines away from margins"
+set scrolloff=2         "Start scrolling when we're 8 lines away from margins"
 set sidescrolloff=15
 set sidescroll=1
 set ttyfast
@@ -124,7 +124,7 @@ function RunFile()
     elseif &filetype ==# 'cpp'
         :exec '!:w;clear;g++ -std=c++14 %;./a.out'
     elseif &filetype ==# 'js'
-        :exec '!:w;clear;node %;'
+        :exec '!:w;clear;/usr/local/bin/node %;'
     elseif &filetype ==# 'go'
         :exec '!:w;clear;go run %'
     elseif &filetype ==# 'php'
@@ -248,6 +248,7 @@ nmap  <silent> <leader>/ :Commentary<cr>
 vmap  <silent> <leader>/ :Commentary<cr>
 nmap  <silent> <C-/> :Commentary<cr>
 autocmd FileType php setlocal commentstring=#\ %s "Added support for php as well"
+autocmd FileType cpp setlocal commentstring=//\ %s "Added support for cpp as well"
 
 " ================================== aonemd/kuroi.vim settings =========================== "
 set background=dark   "or use the light theme: set background=light"
@@ -260,3 +261,6 @@ let g:badwolf_tabline = 2 " Make the tab line lighter than the background."
 let g:badwolf_html_link_underline = 0 " Turn off HTML link underlining"
 let g:badwolf_css_props_highlight = 1 " Turn on CSS properties highlighting "
 
+" ================================== someother colorschemes settings overriden in order =========================== "
+colorscheme mustang
+colorscheme railscasts
